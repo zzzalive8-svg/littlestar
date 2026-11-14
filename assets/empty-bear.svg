@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" width="320" height="280" role="img" aria-label="小熊举着一块空牌子">
+  <g fill="none" stroke="#5B4B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="66" y="22" width="188" height="86" rx="14" fill="#FFFDFB"/>
+    <path d="M96 108l-12 22 34-22M224 108l12 22-34-22" fill="#FFFDFB"/>
+    <circle cx="112" cy="55" r="4" fill="#FF8FA8" stroke="none"/>
+    <circle cx="160" cy="55" r="4" fill="#FF8FA8" stroke="none"/>
+    <circle cx="208" cy="55" r="4" fill="#FF8FA8" stroke="none"/>
+    <path d="M112 76h96" stroke-dasharray="8 8" stroke="#CFC3F0"/>
+    <circle cx="92" cy="152" r="20" fill="#D8A47F"/>
+    <circle cx="228" cy="152" r="20" fill="#D8A47F"/>
+    <path d="M76 206c0-36 36-58 84-58s84 22 84 58c0 33-36 50-84 50s-84-17-84-50z" fill="#E0B18C"/>
+    <ellipse cx="160" cy="224" rx="42" ry="30" fill="#F8E3CF"/>
+    <circle cx="132" cy="202" r="6" fill="#5B4B57" stroke="none"/>
+    <circle cx="188" cy="202" r="6" fill="#5B4B57" stroke="none"/>
+    <ellipse cx="160" cy="218" rx="8" ry="6" fill="#5B4B57" stroke="none"/>
+    <path d="M160 224v6M160 230c-3 5-9 6-13 2M160 230c3 5 9 6 13 2" stroke-width="3.4"/>
+    <ellipse cx="112" cy="220" rx="11" ry="6" fill="#FFB7C9" stroke="none"/>
+    <ellipse cx="208" cy="220" rx="11" ry="6" fill="#FFB7C9" stroke="none"/>
+    <path d="M118 166c-6 12-6 24 0 34M202 166c6 12 6 24 0 34"/>
+  </g>
+</svg>

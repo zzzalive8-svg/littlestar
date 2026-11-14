@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="一只抱着爱心的小熊">
+  <g fill="none" stroke="#5B4B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="66" cy="60" r="30" fill="#D8A47F"/>
+    <circle cx="174" cy="60" r="30" fill="#D8A47F"/>
+    <circle cx="66" cy="60" r="15" fill="#F2C9A8" stroke="none"/>
+    <circle cx="174" cy="60" r="15" fill="#F2C9A8" stroke="none"/>
+    <path d="M40 120c0-52 34-82 80-82s80 30 80 82c0 50-34 76-80 76s-80-26-80-76z" fill="#E0B18C"/>
+    <ellipse cx="120" cy="146" rx="46" ry="34" fill="#F8E3CF"/>
+    <ellipse cx="64" cy="142" rx="13" ry="8" fill="#FFB7C9" stroke="none" opacity=".95"/>
+    <ellipse cx="176" cy="142" rx="13" ry="8" fill="#FFB7C9" stroke="none" opacity=".95"/>
+    <circle cx="88" cy="116" r="7" fill="#5B4B57" stroke="none"/>
+    <circle cx="152" cy="116" r="7" fill="#5B4B57" stroke="none"/>
+    <circle cx="90.5" cy="113" r="2.4" fill="#fff" stroke="none"/>
+    <circle cx="154.5" cy="113" r="2.4" fill="#fff" stroke="none"/>
+    <ellipse cx="120" cy="136" rx="9" ry="7" fill="#5B4B57" stroke="none"/>
+    <path d="M120 143v8M120 151c-3 6-11 7-15 2M120 151c3 6 11 7 15 2"/>
+    <ellipse cx="76" cy="200" rx="19" ry="14" fill="#E0B18C"/>
+    <ellipse cx="164" cy="200" rx="19" ry="14" fill="#E0B18C"/>
+    <path d="M120 188c-9-10-24-2-24 9 0 9 13 16 24 24 11-8 24-15 24-24 0-11-15-19-24-9z" fill="#FF8FA8"/>
+    <path d="M108 197c1-3 4-4 6-3" stroke="#FFD7E1" stroke-width="3"/>
+  </g>
+</svg>

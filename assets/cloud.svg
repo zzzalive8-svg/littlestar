@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 86" width="140" height="86" role="img" aria-label="小云朵">
+  <path d="M34 66C18 66 8 56 8 44c0-13 10-22 23-22 2-11 12-18 23-18 12 0 22 8 24 19 12 0 22 9 22 21s-10 22-23 22z" fill="#FFFDFB" stroke="#5B4B57" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="52" cy="47" r="2.6" fill="#5B4B57"/>
+  <circle cx="80" cy="47" r="2.6" fill="#5B4B57"/>
+  <path d="M61 54c3 4 8 4 11 0" fill="none" stroke="#5B4B57" stroke-width="2.6" stroke-linecap="round"/>
+  <ellipse cx="40" cy="55" rx="7" ry="4" fill="#FFD7E1"/>
+  <ellipse cx="92" cy="55" rx="7" ry="4" fill="#FFD7E1"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 230" width="120" height="230" role="img" aria-label="紫色气球">
+  <g fill="none" stroke="#5B4B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="60" cy="76" rx="46" ry="58" fill="#CFC3F0"></ellipse>
+    <path d="M60 134l-10 13h20z" fill="#B7A5E8"></path>
+    <path d="M60 147c-11 18 11 30 0 48s9 20 0 33" stroke-width="3"></path>
+    <ellipse cx="42" cy="54" rx="10" ry="17" fill="#E9E2FB" stroke="none" transform="rotate(-25 42 54)"></ellipse>
+    <path d="M38 98c5 6 13 8 20 4" stroke="#E9E2FB" stroke-width="3"></path>
+    <path d="M78 58c-4-4-11-1-11 4 0 4 5 7 11 11 6-4 11-7 11-11 0-5-7-8-11-4z" fill="#FF8FA8" stroke-width="2.4"></path>
+  </g>
+</svg>

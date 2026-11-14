@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" width="120" height="100" role="img" aria-label="蝴蝶结">
+  <g fill="none" stroke="#5B4B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M48 44C30 24 10 26 12 42c2 16 24 20 38 10z" fill="#FFB7C9"/>
+    <path d="M72 44c18-20 38-18 36-2-2 16-24 20-38 10z" fill="#FFB7C9"/>
+    <path d="M50 72c-12 14-12 22-6 26 6-2 10-8 14-18zM70 72c12 14 12 22 6 26-6-2-10-8-14-18z" fill="#FFD7E1"/>
+    <rect x="46" y="38" width="28" height="30" rx="10" fill="#FF8FA8"/>
+    <path d="M56 46c2-3 6-3 8 0" stroke="#FFD7E1" stroke-width="3"/>
+  </g>
+</svg>

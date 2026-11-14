@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFF9F3">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="宝宝，生日快乐。这里有一些想对你说的话。">
+  <meta property="og:title" content="宝宝，生日快乐">
+  <meta property="og:description" content="有一封信和我们的照片，想给你看。">
+  <title>我们的小相册</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-locked">
+
+  <!-- 背景小涂鸦 -->
+  <div class="bg-doodles" aria-hidden="true">
+    <img class="doodle doodle--1" src="assets/heart.svg" alt="">
+    <img class="doodle doodle--2" src="assets/star.svg" alt="">
+    <img class="doodle doodle--3" src="assets/cloud.svg" alt="">
+    <img class="doodle doodle--4" src="assets/flower.svg" alt="">
+    <img class="doodle doodle--5" src="assets/heart.svg" alt="">
+    <img class="doodle doodle--6" src="assets/star.svg" alt="">
+  </div>
+
+  <!-- 生日漂浮装饰（只有生日当天显示） -->
+  <div class="bday-decor" aria-hidden="true">
+    <img class="bday-balloon bday-balloon--1" src="assets/balloon-pink.svg" alt="">
+    <img class="bday-balloon bday-balloon--2" src="assets/balloon-lav.svg" alt="">
+    <img class="bday-balloon bday-balloon--3" src="assets/balloon-pink.svg" alt="">
+    <img class="bday-spark bday-spark--1" src="assets/star.svg" alt="">
+    <img class="bday-spark bday-spark--2" src="assets/heart.svg" alt="">
+    <img class="bday-spark bday-spark--3" src="assets/star.svg" alt="">
+  </div>
+
+  <!-- ==================== 暗号门 ==================== -->
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <img class="gate-bunting" src="assets/bunting.svg" alt="" aria-hidden="true">
+    <div class="gate-door gate-door--left" aria-hidden="true"></div>
+    <div class="gate-door gate-door--right" aria-hidden="true"></div>
+
+    <div class="gate-card">
+      <div class="gate-deco gate-deco--flower"><img src="assets/flower.svg" alt=""></div>
+      <div class="gate-deco gate-deco--star"><img src="assets/star.svg" alt=""></div>
+      <div class="gate-deco gate-deco--heart"><img src="assets/heart.svg" alt=""></div>
+      <div class="gate-deco gate-deco--cloud"><img src="assets/cloud.svg" alt=""></div>
+
+      <img class="gate-bear" src="assets/mascot-bear.svg" alt="">
+      <p class="gate-bday">HAPPY BIRTHDAY · <span data-name="her">宝宝</span></p>
+      <p class="gate-kicker">PRIVATE · 只给最特别的你</p>
+      <h1 class="gate-title" id="gate-title">请说出我们的暗号</h1>
+      <p class="gate-sub">说对了，门才会开哦</p>
+
+      <form class="gate-form" id="gate-form" autocomplete="off" novalidate>
+        <label class="sr-only" for="gate-input">暗号</label>
+        <input class="gate-input" id="gate-input" type="password" inputmode="text"
+               placeholder="在这里悄悄输入…" maxlength="40" aria-describedby="gate-hint">
+        <button class="gate-btn" type="submit">开门 <span aria-hidden="true">♥</span></button>
+      </form>
+      <p class="gate-hint" id="gate-hint" aria-live="polite"></p>
+      <p class="gate-foot">made with love · 每次进门都要说暗号</p>
+    </div>
+  </div>
+
+  <!-- ==================== 网站主体 ==================== -->
+  <div class="app" id="app" inert>
+    <header class="topbar">
+      <a class="brand" href="#home">
+        <img src="assets/favicon.svg" alt="">
+        <span>我们的小相册</span>
+      </a>
+      <span class="topbar-bday">HAPPY BIRTHDAY</span>
+      <nav class="topnav" aria-label="页面导航">
+        <a href="#home">首页</a>
+        <a href="#timeline">时光轴</a>
+        <a href="#notes">悄悄话</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 首页 -->
+      <section class="hero" id="home">
+        <img class="hero-bunting" src="assets/bunting.svg" alt="" aria-hidden="true">
+        <div class="hero-copy">
+          <p class="eyebrow">OUR LITTLE ALBUM</p>
+          <p class="hero-bday"><span aria-hidden="true">★</span> HAPPY BIRTHDAY · <span data-name="her">宝宝</span> <span aria-hidden="true">★</span></p>
+          <h1 class="hero-title">
+            <span data-name="my">我</span>
+            <span class="title-with">与</span>
+            <span data-name="her">小笨蛋</span>
+          </h1>
+          <p class="hero-quote" data-config="heroQuote"></p>
+
+          <div class="stat-row">
+            <div class="stat-card">
+              <span class="stat-label">我们已经在一起</span>
+              <strong class="stat-num"><span id="days-together">0</span><small>天</small></strong>
+              <span class="stat-sub" id="days-detail">第 1 天</span>
+            </div>
+          </div>
+
+          <div class="hero-cta">
+            <a class="btn" href="#timeline">看看我们的照片</a>
+            <button class="btn btn--ghost" type="button" id="hero-letter-btn" hidden>
+              <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+                <path d="M3.5 7l8.5 6 8.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span data-letter-label>我的一封信</span>
+            </button>
+            <a class="btn btn--ghost" href="#notes">偷偷说句话</a>
+          </div>
+        </div>
+
+        <div class="hero-photos">
+          <figure class="polaroid polaroid--a">
+            <div class="polaroid-img">
+              <img id="hero-photo" src="assets/photo-placeholder.svg" alt="">
+            </div>
+            <figcaption>最喜欢的一张</figcaption>
+            <button class="polaroid-edit" id="favorite-edit" type="button" aria-haspopup="dialog" aria-controls="favorite-picker">
+              <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+                <path d="M13.5 6.5l3 3" fill="none" stroke="currentColor" stroke-width="1.8"></path>
+              </svg>
+              换一张
+            </button>
+          </figure>
+          <figure class="polaroid polaroid--b">
+            <div class="polaroid-img">
+              <img src="assets/mascot-rabbit.svg" alt="">
+            </div>
+            <figcaption>今天也要开心</figcaption>
+          </figure>
+          <img class="hero-sticker hero-sticker--bow" src="assets/bow.svg" alt="">
+          <img class="hero-sticker hero-sticker--star" src="assets/star.svg" alt="">
+        </div>
+      </section>
+
+      <!-- 时光轴 -->
+      <section class="section timeline" id="timeline">
+        <div class="section-head">
+          <p class="section-kicker">OUR DAYS</p>
+          <h2 class="section-title">时光轴</h2>
+          <p class="section-sub">每一张，都是我们</p>
+        </div>
+
+        <div class="timeline-list" id="timeline-list"></div>
+
+        <div class="empty-state" id="empty-state" hidden>
+          <img class="empty-bear" src="assets/empty-bear.svg" alt="">
+          <h3>照片还在来的路上</h3>
+          <p>把照片放进 <code>photos</code> 文件夹，<br>再双击根目录的「更新照片清单.bat」，就可以啦。</p>
+          <p class="empty-tip">文件名用 <code>2023-05-20_第一次约会.jpg</code> 这样的格式，<br>会自动按日期排好，后面的字会变成照片说明。</p>
+        </div>
+      </section>
+
+      <!-- 悄悄话 -->
+      <section class="section notes" id="notes">
+        <div class="section-head">
+          <p class="section-kicker">LITTLE NOTES</p>
+          <h2 class="section-title">悄悄话</h2>
+          <p class="section-sub">想说的话，都贴在这里</p>
+        </div>
+
+        <div class="note-board" id="note-board"></div>
+
+        <form class="note-form" id="note-form" hidden>
+          <label class="sr-only" for="note-input">写一句悄悄话</label>
+          <textarea id="note-input" maxlength="120" rows="3" placeholder="今天想对你说……"></textarea>
+          <div class="note-form-actions">
+            <button class="btn btn--small" type="submit">贴上去</button>
+            <button class="btn btn--ghost btn--small" type="button" id="note-cancel">算了</button>
+          </div>
+        </form>
+
+        <div class="notes-actions">
+          <button class="btn btn--ghost" type="button" id="add-note-btn">贴一张小纸条</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="footer" hidden>
+      <p class="footer-links">
+        <button class="link-btn" type="button" id="bday-replay" hidden>再看一次生日祝福</button>
+      </p>
+    </footer>
+  </div>
+
+  <!-- ==================== 大图查看 ==================== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="照片大图" hidden>
+    <button class="lb-btn lb-btn--close" id="lb-close" type="button" aria-label="关闭">✕</button>
+    <p class="lb-bday" aria-hidden="true">HAPPY BIRTHDAY ♥</p>
+    <button class="lb-btn lb-btn--prev" id="lb-prev" type="button" aria-label="上一张">‹</button>
+    <figure class="lb-figure">
+      <img class="lb-img" id="lb-img" src="" alt="">
+      <p class="lb-fallback" id="lb-fallback" hidden>这张照片好像走丢了……<br>重新运行一下「更新照片清单.bat」试试</p>
+      <figcaption class="lb-caption">
+        <span class="lb-cap" id="lb-cap"></span>
+        <span class="lb-meta">
+          <span id="lb-date"></span>
+          <span class="lb-count" id="lb-count"></span>
+        </span>
+      </figcaption>
+    </figure>
+    <button class="lb-btn lb-btn--next" id="lb-next" type="button" aria-label="下一张">›</button>
+  </div>
+
+  <!-- ==================== 生日模式 ==================== -->
+  <div class="birthday" id="birthday" role="dialog" aria-modal="true" aria-labelledby="bday-title" hidden>
+    <canvas class="confetti-canvas" id="confetti" aria-hidden="true"></canvas>
+
+    <div class="birthday-card">
+      <button class="bday-close" id="bday-close" type="button" aria-label="关闭生日祝福">✕</button>
+      <p class="bday-kicker">HAPPY BIRTHDAY</p>
+      <h2 class="bday-title" id="bday-title">生日快乐，<span data-name="her">小笨蛋</span>！</h2>
+      <p class="bday-sub">今天是全世界最可爱的你的日子</p>
+
+      <div class="cake-box" id="cake-box">
+        <svg class="cake-svg" viewBox="0 0 220 220" role="img" aria-label="插着三根蜡烛的生日蛋糕">
+          <g fill="none" stroke="#5B4B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="110" cy="200" rx="88" ry="18" fill="#CFC3F0"></ellipse>
+            <ellipse cx="110" cy="196" rx="72" ry="12" fill="#FFFDFB"></ellipse>
+            <rect x="30" y="130" width="160" height="62" rx="16" fill="#FFD7E1"></rect>
+            <path d="M30 150c10 10 20 10 30 0s20-10 30 0 20 10 30 0 20-10 30 0 20 10 30 0v-20H30z" fill="#FFF3E9"></path>
+            <rect x="48" y="88" width="124" height="50" rx="14" fill="#CDEFE3"></rect>
+            <path d="M48 104c9 9 18 9 27 0s18-9 27 0 18 9 27 0 18-9 27 0v-16H48z" fill="#FFF3E9"></path>
+            <circle cx="66" cy="166" r="4" fill="#FFE27A" stroke="none"></circle>
+            <circle cx="96" cy="176" r="4" fill="#CFC3F0" stroke="none"></circle>
+            <circle cx="132" cy="166" r="4" fill="#FFE27A" stroke="none"></circle>
+            <circle cx="158" cy="177" r="4" fill="#CFC3F0" stroke="none"></circle>
+            <circle cx="72" cy="118" r="3.5" fill="#FF8FA8" stroke="none"></circle>
+            <circle cx="146" cy="122" r="3.5" fill="#FF8FA8" stroke="none"></circle>
+
+            <g class="candle">
+              <rect x="76" y="50" width="10" height="38" rx="5" fill="#FFFDFB"></rect>
+              <path d="M79 58h4M79 68h4" stroke="#FF8FA8"></path>
+              <path class="flame" d="M81 48c-7-8-1-17 0-22 6 7 9 14 4 22z" fill="#FFE27A"></path>
+              <path class="smoke" d="M81 40c-5-7 5-9 0-16" opacity="0"></path>
+            </g>
+            <g class="candle">
+              <rect x="105" y="40" width="10" height="48" rx="5" fill="#FFFDFB"></rect>
+              <path d="M108 50h4M108 62h4" stroke="#FF8FA8"></path>
+              <path class="flame" d="M110 38c-7-8-1-17 0-22 6 7 9 14 4 22z" fill="#FFE27A"></path>
+              <path class="smoke" d="M110 30c-5-7 5-9 0-16" opacity="0"></path>
+            </g>
+            <g class="candle">
+              <rect x="134" y="50" width="10" height="38" rx="5" fill="#FFFDFB"></rect>
+              <path d="M137 58h4M137 68h4" stroke="#FF8FA8"></path>
+              <path class="flame" d="M139 48c-7-8-1-17 0-22 6 7 9 14 4 22z" fill="#FFE27A"></path>
+              <path class="smoke" d="M139 40c-5-7 5-9 0-16" opacity="0"></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <p class="bday-msg" id="bday-msg"></p>
+      <div class="bday-actions">
+        <button class="btn bday-letter-btn" id="bday-letter-btn" type="button">
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+            <path d="M3.5 7l8.5 6 8.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span data-letter-label>我的一封信</span>
+        </button>
+        <button class="btn btn--ghost bday-btn" id="blow-btn" type="button">许个愿，吹蜡烛</button>
+      </div>
+      <p class="bday-hint" id="bday-hint">先拆开我写给你的信，再许个愿吧 ♥</p>
+    </div>
+  </div>
+
+  <!-- ==================== 一封信 ==================== -->
+  <div class="letter" id="letter" role="dialog" aria-modal="true" aria-labelledby="letter-title" hidden>
+    <div class="letter-starfield" aria-hidden="true"></div>
+
+    <img class="letter-deco letter-deco--1" src="assets/star.svg" alt="" aria-hidden="true">
+    <img class="letter-deco letter-deco--2" src="assets/heart.svg" alt="" aria-hidden="true">
+    <img class="letter-deco letter-deco--3" src="assets/star.svg" alt="" aria-hidden="true">
+    <img class="letter-deco letter-deco--4" src="assets/flower.svg" alt="" aria-hidden="true">
+
+    <button class="letter-close" id="letter-close" type="button" aria-label="合上信">✕</button>
+
+    <div class="letter-paper" id="letter-paper">
+      <div class="letter-tape" aria-hidden="true"></div>
+
+      <div class="letter-head">
+        <p class="letter-bday-tag">HAPPY BIRTHDAY · 写给你的信</p>
+        <p class="letter-title" id="letter-title"></p>
+        <img class="letter-head-star" src="assets/star.svg" alt="" aria-hidden="true">
+        <p class="letter-greeting" id="letter-greeting"></p>
+      </div>
+
+      <div class="letter-body" id="letter-body"></div>
+
+      <div class="letter-sign">
+        <p class="letter-signature" id="letter-signature"></p>
+        <p class="letter-date" id="letter-date"></p>
+        <span class="letter-good" aria-hidden="true">good!</span>
+        <img class="letter-stamp" src="assets/star.svg" alt="" aria-hidden="true">
+      </div>
+
+      <p class="letter-foot" id="letter-foot"></p>
+      <button class="btn btn--ghost letter-finish" id="letter-finish" type="button">把信收好</button>
+    </div>
+  </div>
+
+  <!-- ==================== 更换最喜欢的一张 ==================== -->
+  <div class="favorite-picker" id="favorite-picker" role="dialog" aria-modal="true" aria-labelledby="favorite-title" hidden>
+    <div class="favorite-card">
+      <button class="favorite-close" id="favorite-close" type="button" aria-label="关闭照片选择">✕</button>
+      <p class="favorite-bday">HAPPY BIRTHDAY</p>
+      <p class="favorite-kicker">MY FAVORITE</p>
+      <h2 class="favorite-title" id="favorite-title">选一张最喜欢的照片</h2>
+      <p class="favorite-sub">点一下，就会换到首页左上角的拍立得里</p>
+      <div class="favorite-grid" id="favorite-grid"></div>
+      <div class="favorite-foot">
+        <button class="link-btn" id="favorite-reset" type="button">恢复默认（最新的一张）</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 手写墨迹滤镜（给信纸文字用） -->
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="ink-wobble" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.028" numOctaves="2" seed="11" result="noise"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.85" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </svg>
+
+  <!-- 背景音乐 -->
+  <button class="music-btn" id="music-btn" type="button" aria-pressed="false" aria-label="打开背景音乐" title="背景音乐">
+    <svg class="music-icon" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="30" fill="#5B4B57"></circle>
+      <circle cx="32" cy="32" r="21" fill="none" stroke="#FFD7E1" stroke-width="2" opacity=".55"></circle>
+      <circle cx="32" cy="32" r="14" fill="none" stroke="#FFD7E1" stroke-width="2" opacity=".4"></circle>
+      <circle cx="32" cy="32" r="6" fill="#FFE27A"></circle>
+      <circle cx="47" cy="17" r="4" fill="#FF8FA8"></circle>
+    </svg>
+  </button>
+
+  <noscript>
+    <p class="noscript">这个小网站需要打开 JavaScript 才能运行哦。</p>
+  </noscript>
+
+  <script src="js/config.js"></script>
+  <script src="js/photos.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

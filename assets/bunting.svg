@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 190" width="1200" height="190" role="img" aria-label="生日彩旗">
+  <g fill="none" stroke="#5B4B57" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 34 Q600 104 1200 34" stroke="#9B8CCD" stroke-width="3"></path>
+
+    <path d="M88 47 L152 47 L120 116 Z" fill="#FFB7C9"></path>
+    <path d="M248 59 L312 59 L280 128 Z" fill="#FFE27A"></path>
+    <path d="M408 66 L472 66 L440 135 Z" fill="#CDEFE3"></path>
+    <path d="M568 69 L632 69 L600 138 Z" fill="#CFC3F0"></path>
+    <path d="M728 66 L792 66 L760 135 Z" fill="#FFD7E1"></path>
+    <path d="M888 59 L952 59 L920 128 Z" fill="#FFE27A"></path>
+    <path d="M1048 47 L1112 47 L1080 116 Z" fill="#FFB7C9"></path>
+
+    <path d="M98 58 L142 58 L120 98 Z" fill="none" stroke="#FFFDFB" stroke-width="3" opacity=".75"></path>
+    <path d="M258 70 L302 70 L280 110 Z" fill="none" stroke="#FFFDFB" stroke-width="3" opacity=".75"></path>
+    <path d="M418 77 L462 77 L440 117 Z" fill="none" stroke="#FFFDFB" stroke-width="3" opacity=".75"></path>
+    <path d="M578 80 L622 80 L600 120 Z" fill="none" stroke="#FFFDFB" stroke-width="3" opacity=".75"></path>
+    <path d="M738 77 L782 77 L760 117 Z" fill="none" stroke="#FFFDFB" stroke-width="3" opacity=".75"></path>
+    <path d="M898 70 L942 70 L920 110 Z" fill="none" stroke="#FFFDFB" stroke-width="3" opacity=".75"></path>
+    <path d="M1058 58 L1102 58 L1080 98 Z" fill="none" stroke="#FFFDFB" stroke-width="3" opacity=".75"></path>
+
+    <g fill="#FFE27A" stroke="#5B4B57" stroke-width="2.6" stroke-linejoin="round">
+      <path d="M200 61 L203 69 L212 70 L205 76 L207 85 L200 80 L193 85 L195 76 L188 70 L197 69 Z"></path>
+      <path d="M360 75 L363 83 L372 84 L365 90 L367 99 L360 94 L353 99 L355 90 L348 84 L357 83 Z" fill="#FF8FA8"></path>
+      <path d="M520 82 L523 90 L532 91 L525 97 L527 106 L520 101 L513 106 L515 97 L508 91 L517 90 Z"></path>
+      <path d="M680 82 L683 90 L692 91 L685 97 L687 106 L680 101 L673 106 L675 97 L668 91 L677 90 Z" fill="#FF8FA8"></path>
+      <path d="M840 75 L843 83 L852 84 L845 90 L847 99 L840 94 L833 99 L835 90 L828 84 L837 83 Z"></path>
+      <path d="M1000 61 L1003 69 L1012 70 L1005 76 L1007 85 L1000 80 L993 85 L995 76 L988 70 L997 69 Z" fill="#FF8FA8"></path>
+    </g>
+
+    <g fill="#FFFDFB" stroke="#5B4B57" stroke-width="2.6" stroke-linejoin="round">
+      <path d="M160 92c-5-6-14-2-14 4 0 5 7 9 14 14 7-5 14-9 14-14 0-6-9-10-14-4z" opacity=".95"></path>
+      <path d="M1040 92c-5-6-14-2-14 4 0 5 7 9 14 14 7-5 14-9 14-14 0-6-9-10-14-4z" opacity=".95"></path>
+    </g>
+  </g>
+</svg>

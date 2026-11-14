@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110" width="110" height="110" role="img" aria-label="小花">
+  <g fill="none" stroke="#5B4B57" stroke-width="3.6" stroke-linejoin="round">
+    <g fill="#FFFDFB">
+      <ellipse cx="55" cy="24" rx="14" ry="20"/>
+      <ellipse cx="55" cy="86" rx="14" ry="20"/>
+      <ellipse cx="24" cy="55" rx="20" ry="14"/>
+      <ellipse cx="86" cy="55" rx="20" ry="14"/>
+      <ellipse cx="33" cy="33" rx="14" ry="19" transform="rotate(-45 33 33)"/>
+      <ellipse cx="77" cy="77" rx="14" ry="19" transform="rotate(-45 77 77)"/>
+      <ellipse cx="77" cy="33" rx="14" ry="19" transform="rotate(45 77 33)"/>
+      <ellipse cx="33" cy="77" rx="14" ry="19" transform="rotate(45 33 77)"/>
+    </g>
+    <circle cx="55" cy="55" r="17" fill="#FFE27A"/>
+    <circle cx="49" cy="53" r="2.4" fill="#5B4B57" stroke="none"/>
+    <circle cx="61" cy="53" r="2.4" fill="#5B4B57" stroke="none"/>
+    <path d="M50 60c3 4 7 4 10 0" stroke-width="3"/>
+  </g>
+</svg>
