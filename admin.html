@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>照片管理 · 我们的小相册</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body.admin-page {
+      padding: 34px 18px 64px;
+    }
+
+    .admin-shell {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .admin-head {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .admin-back {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: var(--cocoa-soft);
+      text-decoration: underline;
+      text-decoration-style: dashed;
+      text-underline-offset: 3px;
+    }
+
+    .admin-head h1 {
+      margin: 0;
+      font-family: var(--font-hand);
+      font-size: clamp(32px, 5vw, 44px);
+      letter-spacing: 0.06em;
+    }
+
+    .admin-head p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: var(--cocoa-soft);
+    }
+
+    .admin-badge {
+      display: inline-flex;
+      margin-top: 12px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(255, 215, 225, 0.7);
+      color: #b25b77;
+      font-size: 12px;
+    }
+
+    .admin-card {
+      margin-bottom: 22px;
+      padding: 28px 30px;
+      background: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .admin-card h2 {
+      margin: 0 0 6px;
+      font-family: var(--font-hand);
+      font-size: 26px;
+      letter-spacing: 0.04em;
+    }
+
+    .admin-hint {
+      margin: 0 0 18px;
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--cocoa-soft);
+    }
+
+    .admin-field {
+      margin-bottom: 16px;
+    }
+
+    .admin-field label,
+    .admin-grid-3 label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--cocoa-soft);
+    }
+
+    .admin-field input,
+    .admin-grid-3 input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 2px solid var(--blush);
+      border-radius: 13px;
+      background: var(--cream);
+      color: var(--cocoa);
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .admin-field input:focus,
+    .admin-grid-3 input:focus {
+      outline: none;
+      border-color: var(--pink);
+      box-shadow: 0 0 0 4px rgba(255, 183, 201, 0.25);
+    }
+
+    .admin-details {
+      margin: 14px 0;
+      font-size: 13px;
+      color: var(--cocoa-soft);
+    }
+
+    .admin-details summary {
+      cursor: pointer;
+      color: var(--lav-deep);
+    }
+
+    .admin-details ol {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      line-height: 1.9;
+    }
+
+    .admin-details a {
+      color: var(--pink);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .admin-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 0.8fr;
+      gap: 12px;
+    }
+
+    .admin-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-status {
+      min-height: 20px;
+      margin: 16px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--cocoa-soft);
+    }
+
+    .admin-status.is-error {
+      color: #c04b62;
+    }
+
+    .admin-status.is-ok {
+      color: #3f8a72;
+    }
+
+    .admin-toolbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .admin-toolbar .admin-hint {
+      margin-bottom: 0;
+    }
+
+    .admin-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .admin-photo {
+      overflow: hidden;
+      background: var(--cream);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-photo-img {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--cream-2);
+    }
+
+    .admin-photo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-photo-img.is-broken::after {
+      content: "照片还没同步到线上";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--cocoa-soft);
+      background: repeating-linear-gradient(45deg, var(--cream-2) 0 10px, #fdeee6 10px 20px);
+    }
+
+    .admin-photo-body {
+      padding: 10px 12px 12px;
+    }
+
+    .admin-photo-cap {
+      display: block;
+      overflow: hidden;
+      font-family: var(--font-hand);
+      font-size: 16px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .admin-photo-date {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--cocoa-soft);
+    }
+
+    .admin-photo-del {
+      margin-top: 8px;
+      padding: 4px 10px;
+      border: 1px solid var(--blush);
+      border-radius: 999px;
+      background: #fff;
+      color: #b25b77;
+      font-size: 11px;
+    }
+
+    .admin-photo-del:hover {
+      background: var(--blush);
+    }
+
+    .admin-empty {
+      grid-column: 1 / -1;
+      padding: 34px 20px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--cocoa-soft);
+      background: var(--cream);
+      border: 2px dashed var(--blush);
+      border-radius: 18px;
+    }
+
+    .admin-footer {
+      margin: 26px 0 0;
+      text-align: center;
+      font-size: 11px;
+      color: #b6a4ae;
+    }
+
+    .admin-token-note {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(91, 75, 87, 0.12);
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--cocoa-soft);
+    }
+
+    @media (max-width: 640px) {
+      body.admin-page {
+        padding: 20px 14px 46px;
+      }
+
+      .admin-card {
+        padding: 22px 18px;
+      }
+
+      .admin-grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .admin-photo-cap {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body class="admin-page">
+  <div class="admin-shell">
+    <header class="admin-head">
+      <a class="admin-back" href="index.html">← 回到相册</a>
+      <h1>照片管理</h1>
+      <p>给「我与宝宝」的小相册加照片、删照片</p>
+      <span class="admin-badge" id="guestBadge" hidden>访客模式 · 只能添加</span>
+    </header>
+
+    <section class="admin-card" id="setupCard">
+      <h2>连接 GitHub 仓库</h2>
+      <p class="admin-hint">
+        只需要设置一次。token 只保存在这台设备的浏览器里，不会写进网页代码。
+      </p>
+
+      <div class="admin-field">
+        <label for="token">GitHub token</label>
+        <input id="token" type="password" autocomplete="off" placeholder="github_pat_... 或 ghp_...">
+      </div>
+
+      <details class="admin-details">
+        <summary>没有 token？看这里生成一个（只给这个仓库）</summary>
+        <ol>
+          <li>打开 <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub Fine-grained tokens</a>，点 Generate new token。</li>
+          <li>Token name 随便填，比如 <code>album-admin</code>；Expiration 选 90 天。</li>
+          <li>Repository access 选 <strong>Only select repositories</strong>，只勾选 <code>littlestar</code>。</li>
+          <li>Repository permissions 里把 <strong>Contents</strong> 设成 <strong>Read and write</strong>。</li>
+          <li>点 Generate token，复制生成的 token 粘贴到上面。</li>
+        </ol>
+        <p>如果想让宝宝也能加照片，可以再生成一个同样的 token 只给她用，丢了随时删掉。</p>
+      </details>
+
+      <details class="admin-details">
+        <summary>仓库设置（一般不用改）</summary>
+        <div class="admin-grid-3">
+          <label>Owner<input id="owner" type="text" value="zzzalive8-svg"></label>
+          <label>Repo<input id="repo" type="text" value="littlestar"></label>
+          <label>Branch<input id="branch" type="text" value="main"></label>
+        </div>
+      </details>
+
+      <div class="admin-actions">
+        <button class="btn" id="connectBtn" type="button">连接仓库</button>
+        <button class="btn btn--ghost" id="clearTokenBtn" type="button" hidden>清除本机 token</button>
+      </div>
+      <p class="admin-status" id="setupStatus" role="status"></p>
+
+      <p class="admin-token-note">
+        提醒：token 相当于这个仓库的钥匙。别把它写进网站代码、别发到公开群里；如果泄露，去 GitHub 删除这个 token 即可。
+      </p>
+    </section>
+
+    <section class="admin-card" id="managerCard" hidden>
+      <div class="admin-toolbar">
+        <div>
+          <h2>照片列表 <span id="photoCount"></span></h2>
+          <p class="admin-hint" id="managerHint">选择照片后会先压缩成适合网页的尺寸，再提交到仓库。</p>
+        </div>
+        <div class="admin-actions">
+          <button class="btn" id="addBtn" type="button">＋ 添加照片</button>
+          <button class="btn btn--ghost" id="settingsBtn" type="button">仓库设置</button>
+        </div>
+      </div>
+
+      <input type="file" id="fileInput" accept="image/*" multiple hidden>
+      <p class="admin-status" id="status" role="status"></p>
+      <div class="admin-photo-grid" id="photoGrid"></div>
+    </section>
+
+    <p class="admin-footer">照片管理页 · 不会出现在相册导航里</p>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var GUEST = new URLSearchParams(location.search).get("guest") === "1";
+      var MAX_EDGE = 1600;
+      var JPEG_QUALITY = 0.85;
+      var DEFAULT_OWNER = "zzzalive8-svg";
+      var DEFAULT_REPO = "littlestar";
+      var DEFAULT_BRANCH = "main";
+      var LS = {
+        token: "albumAdminToken",
+        owner: "albumAdminOwner",
+        repo: "albumAdminRepo",
+        branch: "albumAdminBranch"
+      };
+
+      var state = {
+        owner: DEFAULT_OWNER,
+        repo: DEFAULT_REPO,
+        branch: DEFAULT_BRANCH,
+        token: "",
+        photos: [],
+        connected: false,
+        busy: false
+      };
+
+      var $ = function (id) { return document.getElementById(id); };
+      var setupCard = $("setupCard");
+      var managerCard = $("managerCard");
+      var tokenInput = $("token");
+      var ownerInput = $("owner");
+      var repoInput = $("repo");
+      var branchInput = $("branch");
+      var connectBtn = $("connectBtn");
+      var clearTokenBtn = $("clearTokenBtn");
+      var settingsBtn = $("settingsBtn");
+      var addBtn = $("addBtn");
+      var fileInput = $("fileInput");
+      var photoGrid = $("photoGrid");
+      var photoCount = $("photoCount");
+      var statusEl = $("status");
+      var setupStatus = $("setupStatus");
+      var guestBadge = $("guestBadge");
+      var managerHint = $("managerHint");
+
+      function setStatus(el, text, kind) {
+        if (!el) return;
+        el.textContent = text || "";
+        el.className = "admin-status" + (kind ? " is-" + kind : "");
+      }
+
+      function loadStored() {
+        try {
+          var savedOwner = localStorage.getItem(LS.owner);
+          var savedRepo = localStorage.getItem(LS.repo);
+          var savedBranch = localStorage.getItem(LS.branch);
+          var savedToken = localStorage.getItem(LS.token);
+          if (savedOwner) state.owner = savedOwner;
+          if (savedRepo) state.repo = savedRepo;
+          if (savedBranch) state.branch = savedBranch;
+          if (savedToken) state.token = savedToken;
+        } catch (e) {}
+        ownerInput.value = state.owner;
+        repoInput.value = state.repo;
+        branchInput.value = state.branch;
+        tokenInput.value = state.token;
+        clearTokenBtn.hidden = !state.token;
+      }
+
+      function saveStored() {
+        try {
+          localStorage.setItem(LS.owner, state.owner);
+          localStorage.setItem(LS.repo, state.repo);
+          localStorage.setItem(LS.branch, state.branch);
+          localStorage.setItem(LS.token, state.token);
+        } catch (e) {}
+        clearTokenBtn.hidden = !state.token;
+      }
+
+      function readFields() {
+        state.owner = ownerInput.value.trim() || DEFAULT_OWNER;
+        state.repo = repoInput.value.trim() || DEFAULT_REPO;
+        state.branch = branchInput.value.trim() || DEFAULT_BRANCH;
+        state.token = tokenInput.value.trim();
+      }
+
+      function api(path, options) {
+        var opts = options || {};
+        var headers = Object.assign({
+          "Authorization": "Bearer " + state.token,
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28"
+        }, opts.headers || {});
+        var body = opts.body;
+        if (body && typeof body !== "string") {
+          body = JSON.stringify(body);
+          headers["Content-Type"] = "application/json";
+        }
+        var url = "https://api.github.com/repos/" + state.owner + "/" + state.repo + path;
+        return fetch(url, {
+          method: opts.method || "GET",
+          headers: headers,
+          body: body
+        }).then(function (res) {
+          if (!res.ok) {
+            return res.text().then(function (text) {
+              var message = res.status + " " + res.statusText;
+              try {
+                var json = JSON.parse(text);
+                if (json && json.message) message = res.status + " " + json.message;
+              } catch (e) {}
+              var err = new Error(message);
+              err.status = res.status;
+              throw err;
+            });
+          }
+          if (res.status === 204) return null;
+          return res.json();
+        });
+      }
+
+      function decodeBase64Utf8(b64) {
+        var bin = atob(String(b64 || "").replace(/\s+/g, ""));
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i += 1) bytes[i] = bin.charCodeAt(i);
+        return new TextDecoder().decode(bytes);
+      }
+
+      function encodeBase64Utf8(text) {
+        var bytes = new TextEncoder().encode(text);
+        var bin = "";
+        var chunk = 0x8000;
+        for (var i = 0; i < bytes.length; i += chunk) {
+          bin += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+        }
+        return btoa(bin);
+      }
+
+      function blobToBase64(blob) {
+        return new Promise(function (resolve, reject) {
+          var reader = new FileReader();
+          reader.onload = function () {
+            var result = String(reader.result || "");
+            var comma = result.indexOf(",");
+            resolve(comma >= 0 ? result.slice(comma + 1) : result);
+          };
+          reader.onerror = function () { reject(new Error("读取图片失败")); };
+          reader.readAsDataURL(blob);
+        });
+      }
+
+      function parseManifest(text) {
+        var start = String(text || "").indexOf("window.PHOTOS");
+        if (start < 0) throw new Error("照片清单格式不认识");
+        var eq = text.indexOf("=", start);
+        var json = text.slice(eq + 1).trim();
+        if (json.slice(-1) === ";") json = json.slice(0, -1).trim();
+        var list = JSON.parse(json);
+        if (!Array.isArray(list)) throw new Error("照片清单不是数组");
+        return list.filter(function (item) {
+          return item && typeof item.src === "string" && item.src;
+        });
+      }
+
+      function serializeManifest(photos) {
+        var header = "/* 这个文件由照片管理页自动更新，请不要手改。 */\n\n";
+        var list = sortPhotos(photos);
+        if (!list.length) return header + "window.PHOTOS = [];\n";
+        return header + "window.PHOTOS = [\n" +
+          list.map(function (p) {
+            return "  " + JSON.stringify({
+              src: p.src,
+              date: p.date || "",
+              caption: p.caption || ""
+            });
+          }).join(",\n") +
+          "\n];\n";
+      }
+
+      function sortPhotos(photos) {
+        return photos.slice().sort(function (a, b) {
+          var da = a.date || "";
+          var db = b.date || "";
+          if (da !== db) return da < db ? -1 : 1;
+          return String(a.src).localeCompare(String(b.src));
+        });
+      }
+
+      function filenameFromSrc(src) {
+        var s = String(src || "").replace(/^photos\//, "");
+        try { s = decodeURIComponent(s); } catch (e) {}
+        return s;
+      }
+
+      function siteBase() {
+        return new URL(".", location.href).href;
+      }
+
+      function pagesImageUrl(filename) {
+        return siteBase() + "photos/" + encodeURIComponent(filename);
+      }
+
+      function rawImageUrl(filename) {
+        return "https://raw.githubusercontent.com/" + state.owner + "/" + state.repo + "/" +
+          encodeURIComponent(state.branch) + "/photos/" + encodeURIComponent(filename);
+      }
+
+      function todayISO() {
+        var d = new Date();
+        var pad = function (n) { return n < 10 ? "0" + n : String(n); };
+        return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+      }
+
+      function parseFilename(name) {
+        var base = String(name || "").replace(/\.[^.]+$/, "");
+        var m = /^(\d{4})[-_.]?(\d{1,2})[-_.]?(\d{1,2})(?:[\s_\-—·]+(.*))?$/.exec(base);
+        if (m) {
+          var y = Number(m[1]);
+          var mo = Number(m[2]);
+          var d = Number(m[3]);
+          var dt = new Date(y, mo - 1, d);
+          if (dt.getFullYear() === y && dt.getMonth() === mo - 1 && dt.getDate() === d) {
+            var pad = function (n) { return n < 10 ? "0" + n : String(n); };
+            return {
+              date: y + "-" + pad(mo) + "-" + pad(d),
+              caption: (m[4] || base).replace(/_+/g, " ").trim()
+            };
+          }
+        }
+        return { date: todayISO(), caption: base.trim() };
+      }
+
+      function loadImageFile(file) {
+        return new Promise(function (resolve, reject) {
+          var url = URL.createObjectURL(file);
+          var img = new Image();
+          img.onload = function () {
+            resolve({
+              image: img,
+              width: img.naturalWidth || img.width,
+              height: img.naturalHeight || img.height,
+              cleanup: function () { URL.revokeObjectURL(url); }
+            });
+          };
+          img.onerror = function () {
+            URL.revokeObjectURL(url);
+            reject(new Error("无法读取图片（HEIC 建议先转成 JPG）"));
+          };
+          img.src = url;
+        });
+      }
+
+      function compressImage(file) {
+        var bitmap = null;
+        return createImageBitmap(file, { imageOrientation: "from-image" })
+          .catch(function () {
+            return createImageBitmap(file).catch(function () { return null; });
+          })
+          .then(function (bmp) {
+            bitmap = bmp;
+            if (bitmap) {
+              return {
+                image: bitmap,
+                width: bitmap.width,
+                height: bitmap.height,
+                cleanup: function () { if (bitmap.close) bitmap.close(); }
+              };
+            }
+            return loadImageFile(file);
+          })
+          .then(function (source) {
+            var scale = Math.min(1, MAX_EDGE / Math.max(source.width, source.height));
+            var w = Math.max(1, Math.round(source.width * scale));
+            var h = Math.max(1, Math.round(source.height * scale));
+            var canvas = document.createElement("canvas");
+            canvas.width = w;
+            canvas.height = h;
+            var ctx = canvas.getContext("2d");
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "high";
+            ctx.drawImage(source.image, 0, 0, w, h);
+            source.cleanup();
+            return new Promise(function (resolve, reject) {
+              canvas.toBlob(function (blob) {
+                if (blob) resolve(blob);
+                else reject(new Error("图片压缩失败"));
+              }, "image/jpeg", JPEG_QUALITY);
+            });
+          });
+      }
+
+      function getManifest() {
+        return api("/contents/js/photos.js?ref=" + encodeURIComponent(state.branch))
+          .then(function (data) {
+            var text = decodeBase64Utf8(data.content);
+            return { text: text, photos: parseManifest(text), sha: data.sha };
+          });
+      }
+
+      function commitTree(opts) {
+        var branch = encodeURIComponent(state.branch);
+        return api("/git/ref/heads/" + branch)
+          .then(function (ref) {
+            var parentSha = ref.object.sha;
+            return api("/git/commits/" + parentSha).then(function (commit) {
+              var baseTree = commit.tree.sha;
+              var tree = [];
+              var chain = Promise.resolve();
+
+              (opts.newFiles || []).forEach(function (file) {
+                chain = chain.then(function () {
+                  return blobToBase64(file.blob).then(function (content) {
+                    return api("/git/blobs", {
+                      method: "POST",
+                      body: { content: content, encoding: "base64" }
+                    }).then(function (blob) {
+                      tree.push({ path: file.path, mode: "100644", type: "blob", sha: blob.sha });
+                    });
+                  });
+                });
+              });
+
+              chain = chain.then(function () {
+                return api("/git/blobs", {
+                  method: "POST",
+                  body: { content: encodeBase64Utf8(opts.manifestText), encoding: "base64" }
+                }).then(function (blob) {
+                  tree.push({ path: "js/photos.js", mode: "100644", type: "blob", sha: blob.sha });
+                });
+              });
+
+              (opts.deletes || []).forEach(function (path) {
+                tree.push({ path: path, mode: "100644", type: "blob", sha: null });
+              });
+
+              return chain
+                .then(function () {
+                  return api("/git/trees", {
+                    method: "POST",
+                    body: { base_tree: baseTree, tree: tree }
+                  });
+                })
+                .then(function (newTree) {
+                  return api("/git/commits", {
+                    method: "POST",
+                    body: {
+                      message: opts.message,
+                      tree: newTree.sha,
+                      parents: [parentSha]
+                    }
+                  });
+                })
+                .then(function (newCommit) {
+                  return api("/git/refs/heads/" + branch, {
+                    method: "PATCH",
+                    body: { sha: newCommit.sha }
+                  });
+                });
+            });
+          });
+      }
+
+      function renderPhotos() {
+        photoGrid.innerHTML = "";
+        var list = state.photos.slice().sort(function (a, b) {
+          var da = a.date || "";
+          var db = b.date || "";
+          if (da !== db) return da < db ? 1 : -1;
+          return String(a.src).localeCompare(String(b.src));
+        });
+        photoCount.textContent = "· " + list.length + " 张";
+
+        if (!list.length) {
+          var empty = document.createElement("p");
+          empty.className = "admin-empty";
+          empty.textContent = "还没有照片，点「添加照片」开始吧。";
+          photoGrid.appendChild(empty);
+          return;
+        }
+
+        list.forEach(function (photo) {
+          var filename = filenameFromSrc(photo.src);
+          var card = document.createElement("article");
+          card.className = "admin-photo";
+
+          var imageWrap = document.createElement("div");
+          imageWrap.className = "admin-photo-img";
+          var img = document.createElement("img");
+          img.loading = "lazy";
+          img.alt = photo.caption || "照片";
+          img.src = pagesImageUrl(filename);
+          img.onerror = function () {
+            if (!img.dataset.rawTried) {
+              img.dataset.rawTried = "1";
+              img.src = rawImageUrl(filename);
+              return;
+            }
+            imageWrap.classList.add("is-broken");
+          };
+          imageWrap.appendChild(img);
+
+          var body = document.createElement("div");
+          body.className = "admin-photo-body";
+          var cap = document.createElement("span");
+          cap.className = "admin-photo-cap";
+          cap.textContent = photo.caption || "我们的日子";
+          var date = document.createElement("span");
+          date.className = "admin-photo-date";
+          date.textContent = photo.date || "";
+          body.appendChild(cap);
+          body.appendChild(date);
+
+          if (!GUEST) {
+            var del = document.createElement("button");
+            del.type = "button";
+            del.className = "admin-photo-del";
+            del.textContent = "删除";
+            del.addEventListener("click", function () { deletePhoto(photo); });
+            body.appendChild(del);
+          }
+
+          card.appendChild(imageWrap);
+          card.appendChild(body);
+          photoGrid.appendChild(card);
+        });
+      }
+
+      function refresh() {
+        return getManifest().then(function (data) {
+          state.photos = data.photos;
+          renderPhotos();
+        });
+      }
+
+      function showSetup(message, kind) {
+        setupCard.hidden = false;
+        managerCard.hidden = true;
+        if (message) setStatus(setupStatus, message, kind);
+      }
+
+      function showManager() {
+        setupCard.hidden = true;
+        managerCard.hidden = false;
+        setStatus(setupStatus, "");
+      }
+
+      function connect(silent) {
+        readFields();
+        if (!state.token) {
+          setStatus(setupStatus, "先填 GitHub token。", "error");
+          return Promise.resolve(false);
+        }
+        setStatus(setupStatus, "正在连接仓库…");
+        return getManifest()
+          .then(function (data) {
+            state.photos = data.photos;
+            state.connected = true;
+            saveStored();
+            showManager();
+            renderPhotos();
+            setStatus(statusEl, "已连接，共 " + state.photos.length + " 张照片。");
+            return true;
+          })
+          .catch(function (err) {
+            state.connected = false;
+            showSetup("连接失败：" + err.message + "。检查 token 权限（Contents Read and write）和仓库名。", "error");
+            if (!silent) console.error(err);
+            return false;
+          });
+      }
+
+      function addSelected(files) {
+        var list = Array.prototype.slice.call(files || []);
+        if (!list.length || state.busy) return;
+        state.busy = true;
+        addBtn.disabled = true;
+        setStatus(statusEl, "正在压缩 " + list.length + " 张照片…");
+
+        var prepared = [];
+        var failed = [];
+        var chain = Promise.resolve();
+
+        list.forEach(function (file, index) {
+          chain = chain.then(function () {
+            return compressImage(file).then(function (blob) {
+              var meta = parseFilename(file.name);
+              var stamp = Date.now();
+              var rand = Math.random().toString(36).slice(2, 7);
+              var filename = "photo_" + stamp + "_" + index + "_" + rand + ".jpg";
+              prepared.push({
+                path: "photos/" + filename,
+                blob: blob,
+                date: meta.date,
+                caption: meta.caption
+              });
+              setStatus(statusEl, "正在压缩 " + (index + 1) + "/" + list.length + "…");
+            }).catch(function (err) {
+              failed.push(file.name + "：" + err.message);
+            });
+          });
+        });
+
+        chain
+          .then(function () {
+            if (!prepared.length) {
+              throw new Error("没有成功读取的照片。" + (failed.length ? " " + failed.join("；") : ""));
+            }
+            setStatus(statusEl, "正在上传 " + prepared.length + " 张到 GitHub…");
+            return getManifest().then(function (data) {
+              var entries = data.photos.concat(prepared.map(function (p) {
+                return { src: p.path, date: p.date, caption: p.caption };
+              }));
+              var text = serializeManifest(entries);
+              return commitTree({
+                newFiles: prepared,
+                deletes: [],
+                manifestText: text,
+                message: "添加 " + prepared.length + " 张照片"
+              });
+            });
+          })
+          .then(function () {
+            setStatus(statusEl, "已提交 " + prepared.length + " 张。GitHub Pages 约 1～2 分钟后更新；期间列表里新照片可能先显示占位。", "ok");
+            if (failed.length) {
+              setStatus(statusEl, "已提交 " + prepared.length + " 张，另有 " + failed.length + " 张失败：" + failed.join("；"), "ok");
+            }
+            return refresh();
+          })
+          .catch(function (err) {
+            setStatus(statusEl, "操作失败：" + err.message, "error");
+          })
+          .then(function () {
+            state.busy = false;
+            addBtn.disabled = false;
+          });
+      }
+
+      function deletePhoto(photo) {
+        if (GUEST || state.busy) return;
+        var filename = filenameFromSrc(photo.src);
+        if (!confirm("确定删除「" + (photo.caption || filename) + "」吗？会同时删除仓库里的照片文件。")) return;
+        state.busy = true;
+        setStatus(statusEl, "正在删除…");
+
+        var deletes = [];
+        api("/contents/photos/" + encodeURIComponent(filename) + "?ref=" + encodeURIComponent(state.branch))
+          .then(function () {
+            deletes.push("photos/" + filename);
+          })
+          .catch(function (err) {
+            if (err.status !== 404) throw err;
+          })
+          .then(function () {
+            return getManifest();
+          })
+          .then(function (data) {
+            var remaining = data.photos.filter(function (p) { return p.src !== photo.src; });
+            return commitTree({
+              newFiles: [],
+              deletes: deletes,
+              manifestText: serializeManifest(remaining),
+              message: "删除照片 " + filename
+            });
+          })
+          .then(function () {
+            setStatus(statusEl, "已删除，GitHub Pages 约 1～2 分钟后更新。", "ok");
+            return refresh();
+          })
+          .catch(function (err) {
+            setStatus(statusEl, "删除失败：" + err.message, "error");
+          })
+          .then(function () {
+            state.busy = false;
+          });
+      }
+
+      connectBtn.addEventListener("click", function () { connect(false); });
+
+      settingsBtn.addEventListener("click", function () {
+        showSetup();
+        setStatus(setupStatus, "修改后点「连接仓库」重新连接。");
+      });
+
+      clearTokenBtn.addEventListener("click", function () {
+        try { localStorage.removeItem(LS.token); } catch (e) {}
+        state.token = "";
+        tokenInput.value = "";
+        clearTokenBtn.hidden = true;
+        showSetup("本机 token 已清除。", "ok");
+      });
+
+      addBtn.addEventListener("click", function () {
+        if (!state.connected || state.busy) return;
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", function () {
+        addSelected(fileInput.files);
+        fileInput.value = "";
+      });
+
+      guestBadge.hidden = !GUEST;
+      if (GUEST) {
+        managerHint.textContent = "访客模式：页面只显示添加照片，删除按钮已隐藏；token 本身仍有仓库写入权限，请只发给本人。";
+      }
+
+      loadStored();
+      if (state.token) {
+        connect(true);
+      } else {
+        showSetup();
+      }
+    })();
+  </script>
+</body>
+</html>
